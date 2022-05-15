@@ -1,0 +1,31 @@
+{% extends 'base/main.html' %}
+
+{% block message_placeholder %}
+    {% include 'base/error-message.html' %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>{{ page_type }} page</h1>
+    <br />
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{{ page_type }}" />
+    </form>
+
+    <br />
+
+    {% if page_type == "Login" %}
+    <h4>Have no account yet?</h4>
+    <a href="{% url 'register' %}">Register</a>
+    {% else %}
+    <h5>Already have an account?</h5>
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+</div>
+
+{% endblock %}

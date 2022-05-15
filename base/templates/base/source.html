@@ -1,0 +1,33 @@
+{% extends 'base/main.html' %} {% block content %}
+
+<div>
+    <h2>{{source.name}}</h2>
+    <h3>By {{source.author}}</h3>
+    <br />
+    <h3>About:</h3>
+    <div>
+        <p>{{source.description}}</p>
+    </div>
+
+    <br />
+    <hr />
+
+    <form action="{% url 'create-message' source.id %}" method="post">
+        {% csrf_token %}
+        <legend>
+            <h3>Leave a message</h3>
+        </legend>
+        {{ form }}
+        <br />
+        <input type="submit" value="Send" />
+    </form>
+    <br />
+    <h3>Recent messages</h3>
+    {% for message in messages %}
+        <div>
+            <p><b>{{message.user}}</b>: {{message.body}}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

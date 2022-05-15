@@ -1,0 +1,25 @@
+{% extends 'base/main.html' %} {% block content %}
+
+<h2>Source List</h2>
+<form action="{{ request.path }}" method="get">
+    <input type="text" name="name" placeholder="Search sources">
+</form>
+
+<div>
+    <br />
+
+    <div>
+        <a href="{% url 'create-source' %}">+++ <b>Add new source</b> +++</a>
+    </div>
+
+    <h3>Sources availabe: {{ count }}</h3>
+
+    {% for source in sources %}
+    <div>
+        <p>{{source.id}}: <a href="/source/{{source.id}}">{{source.name}}</a></p>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

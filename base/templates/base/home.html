@@ -1,0 +1,11 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div>
+    <h3>Pages available:</h3>
+    <ul>
+        <li><a href="{% url 'source-list' %}">Source page</a></li>
+        <li><a href="{% url 'global-chat' %}">Global chat</a></li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base/main.html' %} {% block content %}
+
+<div>
+    <h2>Global chat</h2>
+
+    {% for message in messages %}
+    <div>
+        <p><b>{{message.user}}</b>: {{message.body}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

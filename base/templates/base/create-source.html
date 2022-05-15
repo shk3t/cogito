@@ -1,0 +1,18 @@
+{% extends 'base/main.html' %}
+
+{% block message_placeholder %}
+{% include 'base/error-message.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h2>New source:</h2>
+<div>
+    <form action="{% url 'create-source' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create" />
+    </form>
+</div>
+
+{% endblock %}
