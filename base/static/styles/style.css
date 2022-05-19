@@ -13,8 +13,13 @@ li {
     margin-left: 2rem;
 }
 
-input {
+input, textarea, button {
     font-size: var(--main-font-size);
+}
+
+textarea {
+    width: 20rem;
+    height: 4rem;
 }
 
 .container {
@@ -31,4 +36,14 @@ input {
     justify-content: flex-start;
     gap: 40px;
     align-items: center;
+}
+
+hr {
+    border: 1px solid black;
+}
+
+.two-column-flex {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
 }

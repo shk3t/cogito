@@ -8,10 +8,10 @@
 
 <h2>New source:</h2>
 <div>
-    <form action="{% url 'create-source' %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create" />
+        <input type="submit" value="Submit" />
     </form>
 </div>
 

@@ -10,29 +10,28 @@
 </head>
 
 <body>
-
     <div class="container navbar">
         <a href="{% url 'home' %}">
             <h1>COGITO</h1>
         </a>
 
-        {% if not request.user.is_authenticated %}
-            <a href="{% url 'login' %}"><h2>Login</h2></a>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}">
+            <h2>Login</h2>
+        </a>
         {% else %}
-            <h2>{{ request.user|upper }}</h2>
-            <a href="{% url 'logout' %}"><h2>Logout</h2></a>
+        <h2>{{ request.user|upper }}</h2>
+        <a href="{% url 'logout' %}">
+            <h2>Logout</h2>
+        </a>
         {% endif %}
     </div>
 
-        {% block message_placeholder %}
-        {% endblock %}
+    {% block message_placeholder %} {% endblock %}
 
     <br />
 
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <div class="container">{% block content %} {% endblock %}</div>
 
     <script src="{% static 'js/script.js' %}"></script>
 </body>

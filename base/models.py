@@ -14,7 +14,7 @@ class Cluster(models.Model):
 
 class Source(models.Model):
     name = models.CharField(max_length=64)
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     description = models.TextField(null=True, blank=True)
     cluster = models.ForeignKey(
         Cluster, on_delete=models.SET_NULL, null=True, blank=True
@@ -32,7 +32,7 @@ class Message(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-updated', '-created']
+        ordering = ["-updated", "-created"]
 
     def __str__(self):
         return self.body[:32]

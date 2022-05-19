@@ -2,24 +2,48 @@
 
 <h2>Source List</h2>
 <form action="{{ request.path }}" method="get">
-    <input type="text" name="name" placeholder="Search sources">
+    <input type="text" name="name" placeholder="Search sources" value="{{ request.GET.name }}" />
+    {% if request.GET.name %}
+    <a href="{{ request.path }}"><input type="button" value="Reset" /></a>
+    {% endif %}
 </form>
 
-<div>
-    <br />
+<br />
 
+<div class="two-column-flex">
     <div>
-        <a href="{% url 'create-source' %}">+++ <b>Add new source</b> +++</a>
+        <h3>Global sources: {{ sources|length }}</h3>
+        {% for source in sources %}
+        <div>
+            <p>
+                {{source.id}}:
+                <a href="{% url 'source' source.id %}">{{source.name}}</a>
+            </p>
+        </div>
+        {% endfor %}
     </div>
 
-    <h3>Sources availabe: {{ count }}</h3>
+    {% if user.is_authenticated %}
+    <hr />
 
-    {% for source in sources %}
     <div>
-        <p>{{source.id}}: <a href="/source/{{source.id}}">{{source.name}}</a></p>
+        <h3>Your sources: {{ user_sources|length }}</h3>
+        {% for source in user_sources %}
+        <div>
+            <p>
+                <!-- <a href="{% url 'update-source' source.id %}"><input type="button" value="Edit" /></a> -->
+                <!-- <a href="{% url 'delete-source' source.id %}"><input type="button" value="Delete" /></a> -->
+                <a href="{% url 'update-source' source.id %}"><b>Edit</b></a>
+                <a href="{% url 'delete-source' source.id %}"><b>Delete</b></a>
+                {{source.id}}:
+                <a href="{% url 'source' source.id %}">{{source.name}}</a>
+            </p>
+        </div>
+        {% endfor %}
+        <!-- <a href="{% url 'create-source' %}"><input type="button" value="New" /></a> -->
+        <a href="{% url 'create-source' %}"><b>New</b></a>
     </div>
-    {% endfor %}
-
+    {% endif %}
 </div>
 
 {% endblock %}

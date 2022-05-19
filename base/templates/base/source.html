@@ -2,7 +2,7 @@
 
 <div>
     <h2>{{source.name}}</h2>
-    <h3>By {{source.author}}</h3>
+    <h3>By {{source.user}}</h3>
     <br />
     <h3>About:</h3>
     <div>
@@ -11,6 +11,7 @@
 
     <br />
     <hr />
+    <br />
 
     <form action="{% url 'create-message' source.id %}" method="post">
         {% csrf_token %}
@@ -24,9 +25,9 @@
     <br />
     <h3>Recent messages</h3>
     {% for message in messages %}
-        <div>
-            <p><b>{{message.user}}</b>: {{message.body}}</p>
-        </div>
+    <div>
+        <p><b>{{message.user}}</b>: {{message.body}}</p>
+    </div>
     {% endfor %}
 </div>
 
