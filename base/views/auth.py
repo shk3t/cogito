@@ -25,8 +25,8 @@ def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get("username").lower()
-            password = form.cleaned_data.get("password")
+            username = form.cleaned_data["username"].lower()
+            password = form.cleaned_data["password"]
             try:
                 User.objects.get(username=username)  # check if exists
                 user = authenticate(request, username=username, password=password)

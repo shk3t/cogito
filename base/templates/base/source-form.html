@@ -1,18 +1,23 @@
 {% extends 'base/main.html' %}
 
 {% block message_placeholder %}
-{% include 'base/error-message.html' %}
+    {% include 'base/error-message.html' %}
 {% endblock %}
 
 {% block content %}
 
-<h2>New source:</h2>
-<div>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
-    </form>
-</div>
+    {% url 'create-source' as create_url %}
+    {% if request.path == create_url %}
+        <h2>New source:</h2>
+    {% else %}
+        <h2>Edit source:</h2>
+    {% endif %}
+    <div>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
 
 {% endblock %}

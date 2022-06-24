@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Cluster, Source, Message
+from base.models import Cluster, Source, Message
 
 admin.site.register(
     [

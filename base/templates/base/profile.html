@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+    <div>
+        <h2>{{user}}'s profile</h2>
+
+        <br />
+
+        <h3>Recent messages</h3>
+        {% for message in messages %}
+            <div>
+                from <a href="{% url 'source' message.source.id %}"><b>{{message.source}}</b></a>: {{message.body}}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 
 
 class Cluster(models.Model):
@@ -14,8 +15,14 @@ class Cluster(models.Model):
 
 class Source(models.Model):
     name = models.CharField(max_length=64)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=True, blank=True)
+    content = models.FileField(
+        upload_to="source-content/",
+        validators=[FileExtensionValidator(allowed_extensions=["md"])],
+        null=True,
+        blank=True,
+    )
     cluster = models.ForeignKey(
         Cluster, on_delete=models.SET_NULL, null=True, blank=True
     )

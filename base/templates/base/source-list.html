@@ -1,49 +1,67 @@
-{% extends 'base/main.html' %} {% block content %}
+{% extends 'base/main.html' %}
+{% block content %}
 
-<h2>Source List</h2>
-<form action="{{ request.path }}" method="get">
-    <input type="text" name="name" placeholder="Search sources" value="{{ request.GET.name }}" />
-    {% if request.GET.name %}
-    <a href="{{ request.path }}"><input type="button" value="Reset" /></a>
-    {% endif %}
-</form>
-
-<br />
-
-<div class="two-column-flex">
-    <div>
-        <h3>Global sources: {{ sources|length }}</h3>
-        {% for source in sources %}
+    <h2>Source List</h2>
+    <form action="{{ request.path }}" method="get">
+        <input type="text" name="name" placeholder="Search sources" value="{{ request.GET.name }}" />
+        {% if request.GET.name %}
+            <a href="{{ request.path }}"><input type="button" value="Reset" /></a>
+        {% endif %}
+    </form>
+    <br />
+    <div class="column-flex">
         <div>
-            <p>
-                {{source.id}}:
-                <a href="{% url 'source' source.id %}">{{source.name}}</a>
-            </p>
+            <h3>Current cluster: {{current_cluster}} </h3>
+            {% if current_cluster.id %}
+                <p>
+                    <a href="{% url 'source-list' %}">Global</a>
+                </p>
+                {% if current_cluster.parent_cluster_id %}
+                    <p>
+                    <a href="{% url 'source-list' %}?cluster_id={{current_cluster.parent_cluster_id}}">
+                        .. {{current_cluster.parent_cluster}}
+                    </a>
+                    </p>
+                {% endif %}
+            {% endif %}
+            {% for cluster in clusters %}
+                <div>
+                    <p>
+                        {{cluster.id}}:
+                        <a href="{% url 'source-list' %}?cluster_id={{cluster.id}}">{{cluster.name}}</a>
+                    </p>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-
-    {% if user.is_authenticated %}
-    <hr />
-
-    <div>
-        <h3>Your sources: {{ user_sources|length }}</h3>
-        {% for source in user_sources %}
+        <hr />
         <div>
-            <p>
-                <!-- <a href="{% url 'update-source' source.id %}"><input type="button" value="Edit" /></a> -->
-                <!-- <a href="{% url 'delete-source' source.id %}"><input type="button" value="Delete" /></a> -->
-                <a href="{% url 'update-source' source.id %}"><b>Edit</b></a>
-                <a href="{% url 'delete-source' source.id %}"><b>Delete</b></a>
-                {{source.id}}:
-                <a href="{% url 'source' source.id %}">{{source.name}}</a>
-            </p>
+            <h3>{{current_cluster}} sources: {{ sources|length }}</h3>
+            {% for source in sources %}
+                <div>
+                    <p>
+                        {{source.id}}:
+                        <a href="{% url 'source' source.id %}">{{source.name}}</a>
+                    </p>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-        <!-- <a href="{% url 'create-source' %}"><input type="button" value="New" /></a> -->
-        <a href="{% url 'create-source' %}"><b>New</b></a>
+        {% if user.is_authenticated %}
+            <hr />
+            <div>
+                <h3>Your sources: {{ user_sources|length }}</h3>
+                {% for source in user_sources %}
+                    <div>
+                        <p>
+                            <a href="{% url 'update-source' source.id %}"><b>Edit</b></a>
+                            <a href="{% url 'delete-source' source.id %}"><b>Delete</b></a>
+                            {{source.id}}:
+                            <a href="{% url 'source' source.id %}">{{source.name}}</a>
+                        </p>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'create-source' %}"><b>New</b></a>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 
 {% endblock %}

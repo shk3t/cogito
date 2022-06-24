@@ -2,38 +2,38 @@
 {% load static %}
 <html lang="en">
 
-<head>
-    <title>Cogito</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-</head>
+    <head>
+        <title>Cogito</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    </head>
 
-<body>
-    <div class="container navbar">
-        <a href="{% url 'home' %}">
-            <h1>COGITO</h1>
-        </a>
+    <body>
+        <div class="container navbar">
+            <a href="{% url 'home' %}">
+                <h1>COGITO</h1>
+            </a>
 
-        {% if not user.is_authenticated %}
-        <a href="{% url 'login' %}">
-            <h2>Login</h2>
-        </a>
-        {% else %}
-        <h2>{{ request.user|upper }}</h2>
-        <a href="{% url 'logout' %}">
-            <h2>Logout</h2>
-        </a>
-        {% endif %}
-    </div>
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'login' %}">
+                    <h2>Login</h2>
+                </a>
+            {% else %}
+                <h2>{{ request.user|upper }}</h2>
+                <a href="{% url 'logout' %}">
+                    <h2>Logout</h2>
+                </a>
+            {% endif %}
+        </div>
 
-    {% block message_placeholder %} {% endblock %}
+        {% block message_placeholder %} {% endblock %}
 
-    <br />
+        <br />
 
-    <div class="container">{% block content %} {% endblock %}</div>
+        <div class="container">{% block content %} {% endblock %}</div>
 
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
+        <!-- <script src="{% static 'scripts/index.js' %}"></script> -->
+    </body>
 
 </html>

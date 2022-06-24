@@ -1,34 +1,55 @@
-{% extends 'base/main.html' %} {% block content %}
-
-<div>
-    <h2>{{source.name}}</h2>
-    <h3>By {{source.user}}</h3>
-    <br />
-    <h3>About:</h3>
+{% extends 'base/main.html' %}
+{% block content %}
     <div>
-        <p>{{source.description}}</p>
-    </div>
-
-    <br />
-    <hr />
-    <br />
-
-    <form action="{% url 'create-message' source.id %}" method="post">
-        {% csrf_token %}
-        <legend>
-            <h3>Leave a message</h3>
-        </legend>
-        {{ form }}
+        {% if request.user == source.user %}
+            <a href="{% url 'update-source' source.id %}"><b>Edit</b></a>
+        {% endif %}
+        <h2>{{source.name}}</h2>
+        <h3>By {{source.user}}</h3>
         <br />
-        <input type="submit" value="Send" />
-    </form>
-    <br />
-    <h3>Recent messages</h3>
-    {% for message in messages %}
-    <div>
-        <p><b>{{message.user}}</b>: {{message.body}}</p>
+        <h3>About:</h3>
+        <div>
+            <p>{{source.description}}</p>
+        </div>
+        {% if source.content %}
+            <br />
+            <hr />
+            <br />
+            <div class="source-content">
+                {{source.content.url}}
+            </div>
+        {% endif %}
+        <br />
+        <hr />
+        <br />
+        <form action="{% url 'create-message' source.id %}" method="post">
+            {% csrf_token %}
+            <legend>
+                <h3>Leave a message</h3>
+            </legend>
+            {{ form }}
+            <br />
+            <input type="submit" value="Send" />
+        </form>
+        <br />
+        <h3>Recent messages</h3>
+        {% for message in messages %}
+            <div>
+                <a href="{% url 'profile' message.user.id %}"><b>{{message.user}}</b></a>:
+                {{message.body}}
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
+    {% if source.content %}
+        <script type="module">
+            {% load static %}
+            import "{% static 'marked/marked.min.js' %}";
 
+            fetch("{{source.content.url}}")
+                .then(response => response.text())
+                .then(function (plain_md) {
+                document.querySelector(".source-content").innerHTML = marked.parse(plain_md);
+            });
+        </script>
+    {% endif %}
 {% endblock %}

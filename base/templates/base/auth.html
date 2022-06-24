@@ -6,43 +6,43 @@
 
 {% block content %}
 
-{% url 'login' as login_url %}
-{% if request.path == login_url %}
+    {% url 'login' as login_url %}
+    {% if request.path == login_url %}
 
-<div>
-    <h1>Login page</h1>
-    <br />
+        <div>
+            <h1>Login page</h1>
+            <br />
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Login" />
-    </form>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Login" />
+            </form>
 
-    <br />
+            <br />
 
-    <h4>Have no account yet?</h4>
-    <a href="{% url 'register' %}">Register</a>
-</div>
+            <h4>Have no account yet?</h4>
+            <a href="{% url 'register' %}">Register</a>
+        </div>
 
-{% else %}
+    {% else %}
 
-<div>
-    <h1>Registration</h1>
-    <br />
+        <div>
+            <h1>Registration</h1>
+            <br />
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register" />
-    </form>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Register" />
+            </form>
 
-    <br />
+            <br />
 
-    <h5>Already have an account?</h5>
-    <a href="{% url 'login' %}">Login</a>
-</div>
+            <h5>Already have an account?</h5>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}

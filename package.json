@@ -1,0 +1,22 @@
+{
+  "name": "cogito",
+  "version": "1.0.0",
+  "description": "This is the place where you can hone your skills.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shket-228/cogito.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shket-228/cogito/issues"
+  },
+  "homepage": "https://github.com/shket-228/cogito#readme",
+  "dependencies": {
+    "marked": "^4.0.17"
+  }
+}

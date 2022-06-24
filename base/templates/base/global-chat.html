@@ -1,21 +1,24 @@
-{% extends 'base/main.html' %} {% block content %}
+{% extends 'base/main.html' %}
+{% block content %}
+    <div>
+        <h2>Global chat</h2>
+        <br />
 
-<div>
-    <h2>Global chat</h2>
-    <br />
+        {% if page.has_previous %}
+            <a href="{% url 'global-chat' page.previous_page_number %}">Previous</a>
+        {% endif %}
 
-    {% if page.has_previous %}
-    <a href="{% url 'global-chat' page.previous_page_number %}">Previous</a>
-    {% endif %}
+        {% for message in page %}
+            <div>
+                <a href="{% url 'profile' message.user.id %}"><b>{{message.user}}</b></a>
+                from <a href="{% url 'source' message.source.id %}"><b>{{message.source}}</b></a>:
+                {{message.body}}
+            </div>
+        {% endfor %}
 
-    {% for message in page %}
-    <p><b>{{message.user}}</b>: {{message.body}}</p>
-    {% endfor %}
-    
-    {% if page.has_next %}
-    <a href="{% url 'global-chat' page.next_page_number %}">Next</a>
-    {% endif %}
+        {% if page.has_next %}
+            <a href="{% url 'global-chat' page.next_page_number %}">Next</a>
+        {% endif %}
 
-</div>
-
+    </div>
 {% endblock %}

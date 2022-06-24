@@ -1,9 +1,11 @@
 from django.urls import path
 
-from base.views import home, auth, source, message
+from base.views import home, auth, user, source, message
 
 
 urlpatterns = [
+    # Home
+    path("", home.blank),
     path("home", home.home, name="home"),
 
     # Authentication
@@ -11,7 +13,8 @@ urlpatterns = [
     path("logout", auth.logout_view, name="logout"),
     path("register", auth.register_view, name="register"),
 
-    #path("cluster/<int:cluster_id>/", cluster, name="cluster"),
+    # Users
+    path("profile/<int:user_id>", user.get_user_info, name="profile"),
 
     # Sources
     path("sources", source.list_sources, name="source-list"),

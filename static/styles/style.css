@@ -42,7 +42,7 @@ hr {
     border: 1px solid black;
 }
 
-.two-column-flex {
+.column-flex {
     display: flex;
     flex-direction: row;
     gap: 40px;
